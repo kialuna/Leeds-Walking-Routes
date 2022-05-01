@@ -1,0 +1,35 @@
+html { 
+	height: 100%;
+	width: 100%;
+}
+body { 
+	height: 100%;
+	width: 100%;
+	/* background-color: #d3eaf2; */
+    /* color: #515151; */
+    font-size: small;
+    font-family: Sans-serif,"Georgia", "Open Sans";
+}
+#header {
+	
+	/* background-color: #1979a9; */
+	font-size: 20px; 
+    /* color:white; */
+    text-align:center;
+	/* padding: 0.1px; */
+	/* height:100px; */
+}
+
+#map {
+
+    height: 100%;
+}        
+
+#sidebar {
+
+    font-size: 15px;
+    background-color: brown;
+
+}
+
+
