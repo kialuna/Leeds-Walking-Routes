@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>sidebar-v2 example</title>
+
+
+    <!-- Icons -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Leaflet docs -->
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
+
+    <!-- Leaflet Draw Docs  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" rel="stylesheet" />
+    <!-- Sidebar Docs -->
+    <script src="leaflet-sidebar.js"></script>
+    <link rel="stylesheet" href="leaflet-sidebar.css" />
+    <!-- Basemap Docs -->
+    <script src="L.Control.Basemaps-min.js"></script>
+    <link rel="stylesheet" href="L.Control.Basemaps.css" />
+    <!-- My Docs -->
+    <script type="text/javascript" src="routes.js"></script>
+    <script src="map_setup.js"></script>
+    <link rel="stylesheet" href="style.css"/>
+
+</head>
+
+<body onload="initialise()">
+
+    <div id="sidebar" class="leaflet-sidebar collapsed">
+
+        <!-- nav tabs -->
+        <div class="leaflet-sidebar-tabs">
+            <!-- top aligned tabs -->
+            <ul role="tablist">
+                <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
+                <li><a href="#routes" role="tab"><i class="fa fa-arrows"></i></a></li>
+                <li><a href="#messages" role="tab"><i class="fa-solid fa-route"></i></a></li>
+            </ul>
+
+            <!-- bottom aligned tabs
+            <ul role="tablist">
+                <li><a href="https://github.com/nickpeihl/leaflet-sidebar-v2"><i class="fa fa-github"></i></a></li>
+            </ul> -->
+        </div>
+
+        <!-- panel content -->
+        <div class="leaflet-sidebar-content">
+            <div class="leaflet-sidebar-pane" id="home">
+                <h1 class="leaflet-sidebar-header">
+                    Home
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+
+                <p>This is where I'll add my homepage information</p>
+            </div>
+
+            <div class="leaflet-sidebar-pane" id="routes">
+                <h1 class="leaflet-sidebar-header">
+                    Routes
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div id="routes_info"></div>
+            </div>
+
+            <div class="leaflet-sidebar-pane" id="messages">
+                <h1 class="leaflet-sidebar-header">
+                    Get in Touch 
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+            </div>
+        </div>
+    </div>
+
+    <div id="map"></div>
+</body>
+
+</html>

@@ -5,7 +5,8 @@ var routes={
             "type": "Feature",
             "properties": {
                 "Length": 1.72,
-                "Description": "Kirkstall Valley Nature Reserve"
+                "Description": "Kirkstall Valley Nature Reserve",
+                "Image":"kirkstall_valley.jpg"
             },
             "geometry": {
                 "type": "LineString",
@@ -73,7 +74,8 @@ var routes={
             "type": "Feature",
             "properties": {
                 "Length": 4.19,
-                "Description": "Meanwood Beck to Sugarwell Hill Loop"
+                "Description": "Meanwood Beck to Sugarwell Hill Loop",
+                "Image": "sugarwell_hill.jpg"
             },
             "geometry": {
                 "type": "LineString",
@@ -201,7 +203,8 @@ var routes={
             "type": "Feature",
             "properties": {
                 "Length": 4.93,
-                "Description": "Beckett Park to Kirkstall Abbey Loop"
+                "Description": "Beckett Park to Kirkstall Abbey Loop",
+                "Image":"victoria_arch.jpg"
             },
             "geometry": {
                 "type": "LineString",
@@ -481,7 +484,8 @@ var routes={
             "type": "Feature",
             "properties": {
                 "Length": 4.23,
-                "Description": "Roundhay Park from the Clocktower"
+                "Description": "Roundhay Park from the Clocktower",
+                "Image": "roundhay_clock.jpg"
             },
             "geometry": {
                 "type": "LineString",
