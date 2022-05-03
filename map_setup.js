@@ -1,14 +1,13 @@
 // standard leaflet map setup
 var lat = 53.82028051341155;  // Lat and Long coords on which initial map view will be centered, and initial zoom level
 var lng = -1.5443547457634423;
-var initialZoom = 11;
+var initialZoom = 13;
 var sidebar;
 
 function initialise() {
 
     function openRouteInfo(e) {
         sidebar.open("routes")
-        console.log(e.target.feature.properties.Image)
         document.getElementById('routes_info').innerHTML = "<h1>" + e.target.feature.properties.Description +
             "</h1><br><br><b>Length: </b>" + String(e.target.feature.properties.Length) + " km <br><br><img id='images' src="
             + e.target.feature.properties.Image + ">";
@@ -24,13 +23,23 @@ function initialise() {
         e.target.setStyle(myStyle)
     }
 
+    function zoomRoute(e) {
+
+        bounds = e.target.getBounds();
+        console.log(String(bounds));
+        map.fitBounds(bounds, { paddingTopLeft: [400, 0] });
+    }
+
     // // Citation: https://leafletjs.com/examples/geojson/
     function onEachFeature(feature, layer) {
+        layer.on("click", function (e) {
+            zoomRoute(e);
+            openRouteInfo(e);
+        });
         layer.on({
-            click: openRouteInfo,
             mouseover: highlightRoute,
             mouseout: unhighlightRoute
-        })
+        });
     }
 
     // calling map
@@ -38,26 +47,25 @@ function initialise() {
 
     //Load tiles from open street map (you maybe have mapbox tiles here- this is fine) 
     // 
-    
 
 
-    // Citation for satellite image link: http://bl.ocks.org/d3noob/8663620
-    mapLink =
-        '<a href="http://www.esri.com/">Esri</a>';
-    wholink =
-        'i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community';
 
-    var basemaps=[
-    L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: 'Map data ©OpenStreetMap contributors, CC-BY-SA, Imagery ©CloudMade',
-        maxZoom: 18
-        //add the basetiles to the map object	
-    }),
-     L.tileLayer(
-        'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: '&copy; ' + mapLink + ', ' + wholink,
-        maxZoom: 18,
-    })
+    var basemaps = [
+        L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: 'Map data ©OpenStreetMap contributors, CC-BY-SA, Imagery ©CloudMade',
+            maxZoom: 18
+            //add the basetiles to the map object	
+        }),
+
+        // Citation: https://stackoverflow.com/questions/9394190/leaflet-map-api-with-google-satellite-layer
+        // Code written by user capie69
+        // Accessed on: 03/05/2022
+
+        L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            maxZoom: 20,
+            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+        })
+
     ]
 
     map.addControl(L.control.basemaps({
@@ -66,64 +74,80 @@ function initialise() {
         tileY: 0,
         tileZ: 1
     }));
-    
+
 
     myStyle = {
         weight: 2,
         color: '#ff4040'
     }
 
-    L.geoJSON(routes, {
+    var allRoutes = L.geoJSON(routes, {
         onEachFeature: onEachFeature,
         style: myStyle
-    }).addTo(map);
+    }).addTo(map)
+
+    var longRoutes = L.geoJSON(routes, {
+        onEachFeature: onEachFeature,
+        style: myStyle,
+        filter: function (feature, layer) {
+            if (feature.properties.Length > 4)
+                return true
+        }
+    });
+
+    var medRoutes = L.geoJSON(routes, {
+        onEachFeature: onEachFeature,
+        style: myStyle,
+        filter: function (feature, layer) {
+            if (feature.properties.Length < 3)
+                return true
+        }
+    });
+
+    var shortRoutes = L.geoJSON(routes, {
+        onEachFeature: onEachFeature,
+        style: myStyle,
+        filter: function (feature, layer) {
+            if (feature.properties.Length < 2)
+                return true
+        }
+    });
+
+    // Give layers proper names
+    var layers = {
+        "All Routes": allRoutes,
+        "Long Routes": longRoutes,
+        "Medium Routes": medRoutes,
+        "Short Routes": shortRoutes
+    }
+    // Add layer control
+    L.control.layers(layers, null, { collapsed: false }).addTo(map);
+
+    // Geolocation code based on : https://leafletjs.com/examples/mobile/
+    // The below code adds geolocation functionalitym which unfortunately does not work on insecure sites. This code may be added in future if site is moved to HTTPS
+
+    // function onLocationFound(e) {
+    //     L.marker(e.latlng).addTo(map)
+    // }
+
+    // function onLocationError(e) {
+    //     alert(e.message);
+    // }
+
+    // map.on('locationerror', onLocationError);
+    // map.on('onLocationFound',onLocationFound);
+
+    // map.locate()
+
+
+
 
 
 
     // create the sidebar instance and add it to the map
-    var sidebar = L.control.sidebar({ container: 'sidebar' })
+    var sidebar = L.control.sidebar({ container: 'sidebar', autopan: true })
         .addTo(map)
         .open('home');
-
-    // add panels dynamically to the sidebar
-    // sidebar
-    //     .addPanel({
-    //         id: 'js-api',
-    //         tab: '<i class="fa fa-gear"></i>',
-    //         title: 'JS API',
-    //         pane: '<p>The Javascript API allows to dynamically create or modify the panel state.<p/><p><button onclick="sidebar.enablePanel(\'mail\')">enable mails panel</button><button onclick="sidebar.disablePanel(\'mail\')">disable mails panel</button></p><p><button onclick="addUser()">add user</button></b>',
-    //     })
-    //     // add a tab with a click callback, initially disabled
-    //     .addPanel({
-    //         id: 'mail',
-    //         tab: '<i class="fa fa-envelope"></i>',
-    //         title: 'Messages',
-    //         button: function () { alert('opened via JS callback') },
-    //         disabled: true,
-    //     })
-
-    // be notified when a panel is opened
-    // sidebar.on('content', function (ev) {
-    //     switch (ev.id) {
-    //         case 'autopan':
-    //             sidebar.options.autopan = true;
-    //             break;
-    //         default:
-    //             sidebar.options.autopan = false;
-    //     }
-    // });
-
-    // var userid = 0
-    // function addUser() {
-    //     sidebar.addPanel({
-    //         id: 'user' + userid++,
-    //         tab: '<i class="fa fa-user"></i>',
-    //         title: 'User Profile ' + userid,
-    //         pane: '<p>user ipsum dolor sit amet</p>',
-    //     });
-    // }
-
-
 
 
     // CODE BASED ON https://stackoverflow.com/questions/42939633/how-to-draw-a-polyline-using-the-mouse-and-leaflet-js
@@ -158,19 +182,32 @@ function initialise() {
 
     map.on('draw:created', function (e) {
         var layer = e.layer;
+        var type=e.layerType;
         drawnRoute.addLayer(layer);
+
         // Citation: https://gis.stackexchange.com/questions/422864/getting-total-length-of-polyline-from-leaflet-draw
         var coords = layer.getLatLngs();
         console.log(coords.length)
         var dist = 0;
-
         for (var i = 0; i < coords.length - 1; i++) {
             dist += coords[i].distanceTo(coords[i + 1]);
             console.log(dist);
         }
-        layer.bindPopup("Your route of length " + String((dist / 1000).toFixed(2) + "km")).openPopup();
+        sidebar.open("routes")
+        document.getElementById('routes_info').innerHTML = "<br><h3>Your route of length " + String((dist / 1000).toFixed(2)) + " km </h3>";
+
+        // var shape = layer.toGeoJSON()
+        // var shape_for_db = JSON.stringify(shape);
+        // console.log(shape_for_db)
+        // // restore
+        // L.geoJSON(JSON.parse(shape_for_db)).addTo(map);
 
 
     });
-   
+
+    function onSubmit(){
+        document.getElementById('routes_info').innerHTML = "Thanks for your feedback!";
+
+    }
+
 }

@@ -2,28 +2,28 @@
 <html>
 
 <head>
-    <title>sidebar-v2 example</title>
+    <title>Leeds Walking Routes</title>
 
 
-    <!-- Icons -->
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
     <!-- Leaflet docs -->
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
-
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/54a4575f47.js" crossorigin="anonymous"></script>
     <!-- Leaflet Draw Docs  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css" rel="stylesheet" />
     <!-- Sidebar Docs -->
     <script src="leaflet-sidebar.js"></script>
     <link rel="stylesheet" href="leaflet-sidebar.css" />
-    <!-- Basemap Docs -->
+    <!-- Basemap Control Docs -->
     <script src="L.Control.Basemaps-min.js"></script>
     <link rel="stylesheet" href="L.Control.Basemaps.css" />
     <!-- My Docs -->
     <script type="text/javascript" src="routes.js"></script>
     <script src="map_setup.js"></script>
-    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="style.css" />
 
 </head>
 
@@ -35,15 +35,13 @@
         <div class="leaflet-sidebar-tabs">
             <!-- top aligned tabs -->
             <ul role="tablist">
-                <li><a href="#home" role="tab"><i class="fa fa-bars active"></i></a></li>
-                <li><a href="#routes" role="tab"><i class="fa fa-arrows"></i></a></li>
-                <li><a href="#messages" role="tab"><i class="fa-solid fa-route"></i></a></li>
+                <li><a href="#home" role="tab"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="#routes" role="tab"><i class="fa-solid fa-route"></i></a></li>
+                <li><a href="#messages" role="tab"><i class="fa-solid fa-envelope"></i></a></li>
+                <li><a href='https://github.com/kialuna/walking_routes_leeds'><i class="fa-brands fa-github"></i></a>
+                </li>
             </ul>
 
-            <!-- bottom aligned tabs
-            <ul role="tablist">
-                <li><a href="https://github.com/nickpeihl/leaflet-sidebar-v2"><i class="fa fa-github"></i></a></li>
-            </ul> -->
         </div>
 
         <!-- panel content -->
@@ -54,7 +52,30 @@
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
 
-                <p>This is where I'll add my homepage information</p>
+                <h1>Walking Routes in Leeds</h1>
+
+
+                <p>
+                    This map was inspired by the <a href="https://www.facebook.com/groups/235138591475168">Walks In
+                        Leeds</a> Facebook group, where Leeds locals share walking routes that they have enjoyed and
+                    post
+                    pictures and information about them.
+                    <br><br>
+                    This website was created to show some of the routes that have been shared, so that anyone in Leeds
+                    can get outside and get walking.
+                    <br><br>
+                    Walking is free and one of the easiest ways to get active, lose weight and become
+                    <a href="https://www.nhs.uk/live-well/exercise/running-and-aerobic-exercises/walking-for-health/">
+                        healthier</a>. These are just some of the <a
+                        href="https://www.prevention.com/fitness/a20485587/benefits-from-walking-every-day/">many</a>
+                    health benefits of walking, not to mention it can also be an opportunity to catch up with a friend!
+                    <br><br>
+                    Have a walk in mind but don't know how long it is?
+                    <br><br>
+                    Feel free to <strong>plan your own route</strong> by using the controls on the left side of the map.
+                </p>
+
+
             </div>
 
             <div class="leaflet-sidebar-pane" id="routes">
@@ -62,14 +83,31 @@
                     Routes
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
-                <div id="routes_info"></div>
+                <div id="routes_info">
+                    <p>
+                        <strong>
+                            Just click on a route to start exploring... <br>then get out and start walking!
+                        </strong>
+                    </p>
+
+                </div>
             </div>
 
             <div class="leaflet-sidebar-pane" id="messages">
                 <h1 class="leaflet-sidebar-header">
-                    Get in Touch 
+                    Get in Touch
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
+                <div id="form">
+                    <br><br>
+                    <p>Spotted any bugs? Like the site and want to tell us about it? <strong>We value your feedback!</strong></p> 
+                    <form action="contact_form.php" method="POST" >
+                        Name: <input type="text" name="fname" id="fname"><br>
+                        E-mail: <input type="text" name="femail"><br>
+                        Message: <input type="text" name="fmessage"><br>
+                        <input type="submit" onclick="alert('Thank you for submitting your feedback.')">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
