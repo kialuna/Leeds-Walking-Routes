@@ -7,7 +7,7 @@
 
 - [HTML](index.html)
 - [JS Map Setup](map_setup.js)
-- [JS list of GeoJSON Routes](routes.js)
+- [JS list of GeoJSON Routes](routes.js) (created using [geojson.io](https://geojson.io/))
 - [CSS Stylesheet](style.css)
 
 
