@@ -1,5 +1,7 @@
 # Walking Routes in Leeds
-[](website_capture.gif)
+![](website_capture.gif)
+
+
 [Live URL](http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html)
 ### My Code 
 
