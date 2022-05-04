@@ -9,7 +9,9 @@
 - [JS Map Setup](map_setup.js)
 - [JS list of GeoJSON Routes](routes.js) (created using [geojson.io](https://geojson.io/))
 - [CSS Stylesheet](style.css)
-- [PHP database request](contact_form.php)
+- [PHP contact form submission](contact_form.php)
+- [PHP user's route submission](route_submit.php)
+- [PHP to fetch user's routes](fetchRoutes.php)
 
 
 ### Plugins 
