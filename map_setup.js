@@ -14,6 +14,8 @@ var lat = 53.82028051341155;  // Lat and Long coords on which initial map view w
 var lng = -1.5443547457634423;
 var initialZoom = 13;
 var sidebar;
+userRoutes=new Array();
+userRoutesLayer=L.layerGroup()
 
 function initialise() {
 
@@ -59,7 +61,7 @@ function initialise() {
     // calling map
     var map = L.map("map").setView([lat, lng], initialZoom);
 
-/** Load tiles from open street map and Google */
+    /** Load tiles from open street map and Google */
     var basemaps = [
         L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data ©OpenStreetMap contributors, CC-BY-SA, Imagery ©CloudMade',
@@ -74,7 +76,7 @@ function initialise() {
         })
 
     ]
-/** Add plugin basemap control */
+    /** Add plugin basemap control */
     map.addControl(L.control.basemaps({
         basemaps: basemaps,
         tileX: 0,
@@ -82,12 +84,12 @@ function initialise() {
         tileZ: 1
     }));
 
-/** Set route style */
+    /** Set route style */
     myStyle = {
         weight: 2,
         color: '#ff4040'
     }
-/** Pass routes into four geoJSON layers  */
+    /** Pass routes into four geoJSON layers  */
     var allRoutes = L.geoJSON(routes, {
         onEachFeature: onEachFeature,
         style: myStyle
@@ -120,14 +122,49 @@ function initialise() {
         }
     });
 
+    /**
+     * The following section of code is an attempt to fetch the user's submitted routes, 
+     * then turn them back into GeoJSON features to be displayed on the map. 
+     * This is not currently working, and I suspect it might be because of all the weird characters 
+     * in the 'stringified' geojson feature groups interfere with the code.
+     */
+    // console.log('hello?')
+    // $.getJSON("fetchRoutes.php", function(results){
+    //     console.log(results.length)
+    //     for (var i=0; i<results.length; i++){
+    //         userRoutes.push({
+    //             route: results[i].route,
+    //             description: results[i].description
+    //         });
+    //     }
+
+    //     console.log(userRoutes)
+
+    //     routeParse();
+    //     userRoutesLayer.addTo(map)
+    // })
+
+    // function routeParse(){
+    //     for (var i=0; i<userRoutes.length; i++){
+    //         console.log(userRoutes[i].route)
+    //         userRoutesLayer.addLayer(
+    //             L.geoJSON(JSON.parse(userRoutes[i].route))
+
+    //         )
+
+
+    //     }
+    // }
+
     /** Create layers variable with each layer given proper names */
     var layers = {
         "All Routes": allRoutes,
         "&gt 4 km": longRoutes,
         "2 km - 4 km": medRoutes,
-        "&lt 2 km": shortRoutes
+        "&lt 2 km": shortRoutes,
+        "User Routes": userRoutesLayer
     }
-    /** Add layer control */ 
+    /** Add layer control */
     L.control.layers(layers, null, { collapsed: false }).addTo(map);
 
     /**
@@ -151,7 +188,7 @@ function initialise() {
 
     /** Create the sidebar instance and add it to the map 
      * Citation: https://github.com/noerw/leaflet-sidebar-v2
-     * */ 
+     * */
     var sidebar = L.control.sidebar({ container: 'sidebar', autopan: true })
         .addTo(map)
         .open('home');
@@ -174,13 +211,13 @@ function initialise() {
                 }
             },
             // disable toolbar items by setting them to false
-            circle: false, 
+            circle: false,
             polygon: false,
             marker: false,
             rectangle: false,
         },
         edit: {
-            featureGroup: drawnRoute, 
+            featureGroup: drawnRoute,
             remove: true
         }
     };
@@ -188,6 +225,11 @@ function initialise() {
     // Initialise the draw control and pass it the FeatureGroup of editable layers
     var drawControl = new L.Control.Draw(options);
     map.addControl(drawControl);
+
+    function submitRoute(layer) {
+        var stringRoute = JSON.stringify(layer.toGeoJSON());
+        console.log(stringRoute)
+    }
 
     map.on('draw:created', function (e) {
         var layer = e.layer;
@@ -202,8 +244,18 @@ function initialise() {
             dist += coords[i].distanceTo(coords[i + 1]);
             console.log(dist);
         }
-        sidebar.open("routes")
-        document.getElementById('routes_info').innerHTML = "<h3>Your route is " + String((dist / 1000).toFixed(2)) + " km long.</h3>";
+        sidebar.open("drawRoute")
+        document.getElementById('draw_text').innerHTML = "<h3>Your route is " + String((dist / 1000).toFixed(2)) +
+            " km long.</h3> ";
+
+      
+        document.getElementById('routeForm').style.display = "block";
+
+        var stringRoute = JSON.stringify(layer.toGeoJSON());
+            console.log(stringRoute);
+        $("#froute").val(stringRoute)
+        //document.getElementById('submitRouteButton').onclick=submitRoute(layer)
+
 
         // var shape = layer.toGeoJSON()
         // var shape_for_db = JSON.stringify(shape);

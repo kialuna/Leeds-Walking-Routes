@@ -31,6 +31,8 @@ License: MIT
     <!-- Basemap Control Docs -->
     <script src="L.Control.Basemaps-min.js"></script>
     <link rel="stylesheet" href="L.Control.Basemaps.css" />
+    <!-- Javascript for J-query  -->
+	<script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <!-- My Docs -->
     <script type="text/javascript" src="routes.js"></script>
     <script src="map_setup.js"></script>
@@ -47,6 +49,7 @@ License: MIT
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa-solid fa-house"></i></a></li>
                 <li><a href="#routes" role="tab"><i class="fa-solid fa-route"></i></a></li>
+                <li><a href="#drawRoute" role="tab"><i class="fa-solid fa-pen-ruler"></i></a></li>
                 <li><a href="#messages" role="tab"><i class="fa-solid fa-envelope"></i></a></li>
                 <li><a href='#github'><i class="fa-brands fa-github"></i></a>
                 </li>
@@ -103,6 +106,28 @@ License: MIT
                 </div>
             </div>
 
+            <div class="leaflet-sidebar-pane" id="drawRoute">
+                <h1 class="leaflet-sidebar-header">
+                    Create Your Own
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <div id="draw_text">
+                    <p>
+                        <strong>
+                           Use the controls to draw your own route. 
+                        </strong>
+                    </p>
+                </div>
+                <div id="routeForm" class="form" style="display:none;" >
+                    <p> If you would like to submit your route please give it a short description and then click the button</p>
+                    <form action="route_submit.php" method="POST" enctype="multipart/form-data">
+                        Description: <input type="text" name="fdesc" id="fdesc"><br>
+                        <input type="hidden" id="froute" name="froute" >
+                        <input type="submit" onclick="alert('Thank you for submitting your route.')">
+                    </form>
+                </div>
+            </div>
+
             <div class="leaflet-sidebar-pane" id="messages">
                 <h1 class="leaflet-sidebar-header">
                     Get in Touch
@@ -112,7 +137,7 @@ License: MIT
                 <p>Spotted any bugs? Like the site and want to tell us about it? <strong>We value your
                         feedback!</strong></p>
                 <!-- HTML contact form -->
-                <div id="form">
+                <div class="form">
                     <form action="contact_form.php" method="POST" enctype="multipart/form-data">
                         Name: <input type="text" name="fname" id="fname"><br>
                         E-mail: <input type="text" name="femail"><br>
