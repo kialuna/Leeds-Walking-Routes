@@ -1,3 +1,15 @@
+/*
+ * Project: Web Based GIS Assignment 2
+ * File: style.css
+ * File Created: Sunday, 1st May 2022 2:35:02 pm
+ * Student Number: 201578549
+ * -----
+ * Last Modified: Wednesday, 4th May 2022 12:23:26 pm
+ * -----
+ * License: MIT
+ */
+
+
 body {
     padding: 0;
     margin: 0;
@@ -11,28 +23,38 @@ body,
 }
 
 
-
-#images{ 
+#images {
     width: 300px;
 }
 
 
 
 /* Citation: https://www.w3schools.com/howto/howto_css_contact_form.asp */
+
 /* Style inputs with type="text", select elements and textareas */
-input[type=text], select, textarea {
-    width: 100%; /* Full width */
-    padding: 12px; /* Some padding */ 
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 6px; /* Add a top margin */
-    margin-bottom: 16px; /* Bottom margin */
-    resize: vertical; /* Allow the user to vertically resize the textarea (not horizontally) */
-  }
+input[type=text],
+select,
+textarea {
+    width: 100%;
+    /* Full width */
+    padding: 12px;
+    /* Some padding */
+    border: 1px solid #ccc;
+    /* Gray border */
+    border-radius: 4px;
+    /* Rounded borders */
+    box-sizing: border-box;
+    /* Make sure that padding and width stays in place */
+    margin-top: 6px;
+    /* Add a top margin */
+    margin-bottom: 16px;
+    /* Bottom margin */
+    resize: vertical;
+    /* Allow the user to vertically resize the textarea (not horizontally) */
+}
 
 
-  /* Style the submit button with a specific background color etc */
+/* Style the submit button with a specific background color etc */
 input[type=submit] {
     background-color: #04AA6D;
     color: white;
@@ -40,10 +62,11 @@ input[type=submit] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
-  }
+}
 
 
-#form{
+#form {
     text-align: left;
 }
+
 /*  */

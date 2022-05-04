@@ -1,11 +1,22 @@
+<!--
+Project: Web Based GIS Assignment 2
+File: index.html
+File Created: Sunday, 1st May 2022 2:35:02 pm
+Student Number: 201578549
+-----
+Last Modified: Wednesday, 4th May 2022 12:24:05 pm
+-----
+License: MIT
+-->
+
+
 <!DOCTYPE html>
 <html>
 
 <head>
+    <!-- Tab title -->
     <title>Leeds Walking Routes</title>
-
-
-
+    <link rel="icon" type="image/x-icon" href="shoe-prints-solid.svg">
     <!-- Leaflet docs -->
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" crossorigin=""></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" crossorigin="" />
@@ -31,14 +42,13 @@
 
     <div id="sidebar" class="leaflet-sidebar collapsed">
 
-        <!-- nav tabs -->
+        <!-- navigation tabs -->
         <div class="leaflet-sidebar-tabs">
-            <!-- top aligned tabs -->
             <ul role="tablist">
                 <li><a href="#home" role="tab"><i class="fa-solid fa-house"></i></a></li>
                 <li><a href="#routes" role="tab"><i class="fa-solid fa-route"></i></a></li>
                 <li><a href="#messages" role="tab"><i class="fa-solid fa-envelope"></i></a></li>
-                <li><a href='https://github.com/kialuna/walking_routes_leeds'><i class="fa-brands fa-github"></i></a>
+                <li><a href='#github'><i class="fa-brands fa-github"></i></a>
                 </li>
             </ul>
 
@@ -98,10 +108,12 @@
                     Get in Touch
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
+
+                <p>Spotted any bugs? Like the site and want to tell us about it? <strong>We value your
+                        feedback!</strong></p>
+                <!-- HTML contact form -->
                 <div id="form">
-                    <br><br>
-                    <p>Spotted any bugs? Like the site and want to tell us about it? <strong>We value your feedback!</strong></p> 
-                    <form action="contact_form.php" method="POST" >
+                    <form action="contact_form.php" method="POST" enctype="multipart/form-data">
                         Name: <input type="text" name="fname" id="fname"><br>
                         E-mail: <input type="text" name="femail"><br>
                         Message: <input type="text" name="fmessage"><br>
@@ -109,9 +121,22 @@
                     </form>
                 </div>
             </div>
+
+            <div class="leaflet-sidebar-pane" id="github">
+                <h1 class="leaflet-sidebar-header">
+                    Documentation
+                    <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
+                </h1>
+                <p>
+                    To explore the code written for this website, and to see the plugins and code examples built upon,
+                    visit our <a href="https://github.com/kialuna/walking_routes_leeds" target="_blank">Github
+                        repository</a>.
+                </p>
+
+            </div>
         </div>
     </div>
-
+    <!-- Map container -->
     <div id="map"></div>
 </body>
 

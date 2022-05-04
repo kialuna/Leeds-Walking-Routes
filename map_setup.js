@@ -1,4 +1,15 @@
-// standard leaflet map setup
+/*
+ * Project: Web Based GIS Assignment 2
+ * File: map_setup.js
+ * File Created: Sunday, 1st May 2022 2:35:02 pm
+ * Student Number: 201578549
+ * -----
+ * Last Modified: Wednesday, 4th May 2022 12:24:00 pm
+ * -----
+ * License: MIT
+ */
+
+
 var lat = 53.82028051341155;  // Lat and Long coords on which initial map view will be centered, and initial zoom level
 var lng = -1.5443547457634423;
 var initialZoom = 13;
@@ -6,31 +17,34 @@ var sidebar;
 
 function initialise() {
 
+    /** Add route info to routes panel*/
     function openRouteInfo(e) {
         sidebar.open("routes")
         document.getElementById('routes_info').innerHTML = "<h1>" + e.target.feature.properties.Description +
             "</h1><br><br><b>Length: </b>" + String(e.target.feature.properties.Length) + " km <br><br><img id='images' src="
             + e.target.feature.properties.Image + ">";
     }
-
+    /** Set style of highlighted route */
     function highlightRoute(e) {
         e.target.setStyle({
             weight: 5,
             color: '#fa8072'
         })
     }
+    /** Reset style of route */
     function unhighlightRoute(e) {
         e.target.setStyle(myStyle)
     }
-
+    /** Zoom to bounds of route clicked on, with left-hand padding to allow for sidebar */
     function zoomRoute(e) {
 
         bounds = e.target.getBounds();
         console.log(String(bounds));
         map.fitBounds(bounds, { paddingTopLeft: [400, 0] });
     }
-
-    // // Citation: https://leafletjs.com/examples/geojson/
+    /** Functions which apply to each feature
+     *  Citation: https://leafletjs.com/examples/geojson/
+     */
     function onEachFeature(feature, layer) {
         layer.on("click", function (e) {
             zoomRoute(e);
@@ -45,21 +59,14 @@ function initialise() {
     // calling map
     var map = L.map("map").setView([lat, lng], initialZoom);
 
-    //Load tiles from open street map (you maybe have mapbox tiles here- this is fine) 
-    // 
-
-
-
+/** Load tiles from open street map and Google */
     var basemaps = [
         L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: 'Map data ©OpenStreetMap contributors, CC-BY-SA, Imagery ©CloudMade',
-            maxZoom: 18
-            //add the basetiles to the map object	
+            maxZoom: 20
         }),
 
         // Citation: https://stackoverflow.com/questions/9394190/leaflet-map-api-with-google-satellite-layer
-        // Code written by user capie69
-        // Accessed on: 03/05/2022
 
         L.tileLayer('http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
             maxZoom: 20,
@@ -67,7 +74,7 @@ function initialise() {
         })
 
     ]
-
+/** Add plugin basemap control */
     map.addControl(L.control.basemaps({
         basemaps: basemaps,
         tileX: 0,
@@ -75,12 +82,12 @@ function initialise() {
         tileZ: 1
     }));
 
-
+/** Set route style */
     myStyle = {
         weight: 2,
         color: '#ff4040'
     }
-
+/** Pass routes into four geoJSON layers  */
     var allRoutes = L.geoJSON(routes, {
         onEachFeature: onEachFeature,
         style: myStyle
@@ -90,7 +97,7 @@ function initialise() {
         onEachFeature: onEachFeature,
         style: myStyle,
         filter: function (feature, layer) {
-            if (feature.properties.Length > 4)
+            if (feature.properties.Length >= 4)
                 return true
         }
     });
@@ -99,7 +106,7 @@ function initialise() {
         onEachFeature: onEachFeature,
         style: myStyle,
         filter: function (feature, layer) {
-            if (feature.properties.Length < 3)
+            if (feature.properties.Length < 4 && feature.properties.Length >= 2)
                 return true
         }
     });
@@ -113,45 +120,47 @@ function initialise() {
         }
     });
 
-    // Give layers proper names
+    /** Create layers variable with each layer given proper names */
     var layers = {
         "All Routes": allRoutes,
-        "Long Routes": longRoutes,
-        "Medium Routes": medRoutes,
-        "Short Routes": shortRoutes
+        "&gt 4 km": longRoutes,
+        "2 km - 4 km": medRoutes,
+        "&lt 2 km": shortRoutes
     }
-    // Add layer control
+    /** Add layer control */ 
     L.control.layers(layers, null, { collapsed: false }).addTo(map);
 
-    // Geolocation code based on : https://leafletjs.com/examples/mobile/
-    // The below code adds geolocation functionalitym which unfortunately does not work on insecure sites. This code may be added in future if site is moved to HTTPS
+    /**
+     * Geolocation code based on : https://leafletjs.com/examples/mobile/
+    The below code adds geolocation functionality which unfortunately does not work on insecure sites. 
+    This code may be added in future if site is moved to HTTPS.
 
-    // function onLocationFound(e) {
-    //     L.marker(e.latlng).addTo(map)
-    // }
+    function onLocationFound(e) {
+        L.marker(e.latlng).addTo(map)
+    }
 
-    // function onLocationError(e) {
-    //     alert(e.message);
-    // }
+    function onLocationError(e) {
+        alert(e.message);
+    }
 
-    // map.on('locationerror', onLocationError);
-    // map.on('onLocationFound',onLocationFound);
+    map.on('locationerror', onLocationError);
+    map.on('onLocationFound',onLocationFound);
 
-    // map.locate()
+    map.locate() 
+    */
 
-
-
-
-
-
-    // create the sidebar instance and add it to the map
+    /** Create the sidebar instance and add it to the map 
+     * Citation: https://github.com/noerw/leaflet-sidebar-v2
+     * */ 
     var sidebar = L.control.sidebar({ container: 'sidebar', autopan: true })
         .addTo(map)
         .open('home');
 
 
-    // CODE BASED ON https://stackoverflow.com/questions/42939633/how-to-draw-a-polyline-using-the-mouse-and-leaflet-js
-    // Initialise the FeatureGroup to store editable layers
+    /**
+     * Initialise the FeatureGroup to store editable layers
+     * Citation: https://stackoverflow.com/questions/42939633/how-to-draw-a-polyline-using-the-mouse-and-leaflet-js
+     */
     var drawnRoute = new L.FeatureGroup();
     map.addLayer(drawnRoute);
 
@@ -159,19 +168,19 @@ function initialise() {
         position: 'topleft',
         draw: {
             polyline: {
-                shapeOptions: {
+                shapeOptions: { // Set style
                     color: '#0000ff',
                     weight: 2
                 }
             },
-            // disable toolbar item by setting it to false
-            circle: false, // Turns off this drawing tool
+            // disable toolbar items by setting them to false
+            circle: false, 
             polygon: false,
             marker: false,
             rectangle: false,
         },
         edit: {
-            featureGroup: drawnRoute, //REQUIRED!!
+            featureGroup: drawnRoute, 
             remove: true
         }
     };
@@ -182,7 +191,7 @@ function initialise() {
 
     map.on('draw:created', function (e) {
         var layer = e.layer;
-        var type=e.layerType;
+        var type = e.layerType;
         drawnRoute.addLayer(layer);
 
         // Citation: https://gis.stackexchange.com/questions/422864/getting-total-length-of-polyline-from-leaflet-draw
@@ -194,7 +203,7 @@ function initialise() {
             console.log(dist);
         }
         sidebar.open("routes")
-        document.getElementById('routes_info').innerHTML = "<br><h3>Your route of length " + String((dist / 1000).toFixed(2)) + " km </h3>";
+        document.getElementById('routes_info').innerHTML = "<h3>Your route is " + String((dist / 1000).toFixed(2)) + " km long.</h3>";
 
         // var shape = layer.toGeoJSON()
         // var shape_for_db = JSON.stringify(shape);
@@ -205,9 +214,5 @@ function initialise() {
 
     });
 
-    function onSubmit(){
-        document.getElementById('routes_info').innerHTML = "Thanks for your feedback!";
-
-    }
 
 }
