@@ -2,7 +2,7 @@
 ![](website_capture.gif)
 
 
-The [live URL](http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html) can be accessed from a University of Leeds IP address.
+The [live URL](http://web40@dialogplus.leeds.ac.uk/geog5870/web40/201578549%20-%20Project%20Submission/index.html) can be accessed from a University of Leeds IP address.
 ### My Code 
 
 - [HTML](index.html)
