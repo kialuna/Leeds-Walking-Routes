@@ -40,6 +40,6 @@ $result=pg_query($query) or die ('Query failed: '.pg_last_error());
 
 pg_close($dbconn);
 
-header("Location: http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html")
+header("Location: http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html");
 
  ?>

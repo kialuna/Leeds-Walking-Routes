@@ -22,7 +22,7 @@
 	$dbconn = pg_connect($pgsqlOptions) or die ('connection failure');
 	
 	//Define sql query
-	$query = "SELECT route, description FROM gy21km_routes_submit";
+	$query = "SELECT route, description FROM gy21km_routes_submit WHERE approved = 'true'";
 
 	//Execute query
 	$result = pg_query($dbconn, $query) or die ('Query failed: '.pg_last_error());
@@ -31,11 +31,11 @@
 	$userRoutes = array();
 
 	//Loop through query results 
-	while ($row = pg_fetch_array($result, null, PGSQL_ASSOC))	{
+	while ($row = pg_fetch_array($result, null, PGSQL_ASSOC)) {
 	
 		//Populate userRoutes array 
 		$userRoutes[] = array("route"=> $row["route"],"description"=>$row["description"]);
-	}
+	};
 	
     // Encode data in JSON
     echo json_encode($userRoutes);

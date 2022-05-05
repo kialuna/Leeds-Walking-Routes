@@ -25,7 +25,7 @@ function sanitise($str){
         $sanStr = substr($sanStr,0,500);
     }    
     return $sanStr;
-}
+};
 
 //Connect to database
 
@@ -53,6 +53,6 @@ pg_close($dbconn);
 
 //Go back to homepage
 
-header("Location: http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html")
+header("Location: http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html");
 
 ?>

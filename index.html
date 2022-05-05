@@ -83,7 +83,7 @@ License: MIT
                         href="https://www.prevention.com/fitness/a20485587/benefits-from-walking-every-day/">many</a>
                     health benefits of walking, not to mention it can also be an opportunity to catch up with a friend!
                     <br><br>
-                    Have a walk in mind but don't know how long it is?
+                    Know a great route that you want to share with others? Or just want to plan it out for your own benefit?
                     <br><br>
                     Feel free to <strong>plan your own route</strong> by using the controls on the left side of the map.
                 </p>
@@ -119,9 +119,9 @@ License: MIT
                     </p>
                 </div>
                 <div id="routeForm" class="form" style="display:none;" >
-                    <p> If you would like to submit your route please give it a short description and then click the button</p>
+                    <p> If you would like to submit your route please give it a short description and then click the button below.</p>
                     <form action="route_submit.php" method="POST" enctype="multipart/form-data">
-                        Description: <input type="text" name="fdesc" id="fdesc"><br>
+                        Description: <input type="text" name="fdesc" id="fdesc" required><br>
                         <input type="hidden" id="froute" name="froute" >
                         <input type="submit" onclick="alert('Thank you for submitting your route.')">
                     </form>
@@ -134,14 +134,14 @@ License: MIT
                     <span class="leaflet-sidebar-close"><i class="fa fa-caret-left"></i></span>
                 </h1>
 
-                <p>Spotted any bugs? Like the site and want to tell us about it? <strong>We value your
+                <p>Spotted any bugs? Like the site and want to tell us about it? <br><strong>We value your
                         feedback!</strong></p>
                 <!-- HTML contact form -->
                 <div class="form">
                     <form action="contact_form.php" method="POST" enctype="multipart/form-data">
-                        Name: <input type="text" name="fname" id="fname"><br>
-                        E-mail: <input type="text" name="femail"><br>
-                        Message: <input type="text" name="fmessage"><br>
+                        Name: <input type="text" name="fname" id="fname" required><br>
+                        E-mail: <input type="text" name="femail" required><br>
+                        Message: <input type="text" name="fmessage" required><br>
                         <input type="submit" onclick="alert('Thank you for submitting your feedback.')">
                     </form>
                 </div>
