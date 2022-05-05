@@ -2,7 +2,7 @@
 ![](website_capture.gif)
 
 
-The [live URL](http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html) can be used when within range of the dialogplus server.
+The [live URL](http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20Map/index.html) can be accessed from a University of Leeds IP address.
 ### My Code 
 
 - [HTML](index.html)
