@@ -15,8 +15,10 @@ The [live URL](http://dialogplus.leeds.ac.uk/geog5870/web40/Assignment%202/My%20
 
 
 ### Plugins 
-- [Basemap control](https://github.com/consbio/Leaflet.Basemaps)
-- [Sidebar](https://github.com/noerw/leaflet-sidebar-v2)
+- [Leaflet Basemap control](https://github.com/consbio/Leaflet.Basemaps)
+- [Leaflet V2 Sidebar](https://github.com/noerw/leaflet-sidebar-v2)
+- [JQuery](https://blog.jquery.com/2012/03/21/jquery-1-7-2-released/)
+- [Leaflet Draw](http://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html)
 
 ### Code References 
 - [GeoJSON with Leaflet](https://leafletjs.com/examples/geojson/)
